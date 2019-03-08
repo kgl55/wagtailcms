@@ -5,6 +5,7 @@ from django.db import models
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
+
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     FieldRowPanel,
@@ -19,6 +20,7 @@ from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
+from wagtail.admin.utils import send_mail
 
 from .blocks import BaseStreamBlock
 
@@ -325,6 +327,17 @@ class FormPage(AbstractEmailForm):
             FieldPanel('subject'),
         ], "Email"),
     ]
+
+    def send_mail(self, form):
+        addresses = [x.strip() for x in self.to_address.split(',')]
+        content = []
+        for field in form:
+            value = field.value()
+            if isinstance(value, list):
+                value = ', '.join(value)
+            content.append('{}: {}'.format(field.label, value))
+        content = '\n'.join(content)
+        send_mail( self.subject, content, addresses, self.from_address)
 
 
 class GalleryPage(Page):
