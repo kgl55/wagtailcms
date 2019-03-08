@@ -13,8 +13,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.163.com'
 EMAIL_PORT = 25
 # 你的邮箱账号与密码
-EMAIL_HOST_USER = 'kgl55@163.com'
-EMAIL_HOST_PASSWORD = '3105010035'
+EMAIL_HOST_USER = '*****'
+EMAIL_HOST_PASSWORD = '*****'
 # 由于使用25端口，一般都不使用TLS机密，SSL和TSL只需要设置一个，他们同时为True或False
 EMAIL_USE_TLS = False
 
